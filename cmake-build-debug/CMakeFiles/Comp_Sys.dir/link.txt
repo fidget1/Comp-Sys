@@ -1,0 +1,1 @@
+/usr/bin/cc -g   CMakeFiles/Comp_Sys.dir/main.c.o  -o Comp_Sys 
