@@ -6,3 +6,15 @@ Hello, World!
 exit
 
 Script done on 2020-09-11 22:41:22-04:00 [COMMAND_EXIT_CODE="0"]
+Script started on 2020-09-11 22:50:55-04:00 [TERM="xterm-256color" TTY="/dev/pts/0" COLUMNS="170" LINES="15"]
+]0;reptar@reptar: ~/Documents/Comp-Sys[01;32mreptar@reptar[00m:[01;34m~/Documents/Comp-Sys[00m$ make
+gcc -std=c99 -Wall -o simple_c_program simple_c_program.c
+]0;reptar@reptar: ~/Documents/Comp-Sys[01;32mreptar@reptar[00m:[01;34m~/Documents/Comp-Sys[00m$ make run
+./simple_c_program
+Hello, World!
+]0;reptar@reptar: ~/Documents/Comp-Sys[01;32mreptar@reptar[00m:[01;34m~/Documents/Comp-Sys[00m$ make clean
+rm simple_c_program
+]0;reptar@reptar: ~/Documents/Comp-Sys[01;32mreptar@reptar[00m:[01;34m~/Documents/Comp-Sys[00m$ exit
+exit
+
+Script done on 2020-09-11 22:51:17-04:00 [COMMAND_EXIT_CODE="0"]
