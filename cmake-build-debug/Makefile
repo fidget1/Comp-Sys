@@ -143,32 +143,32 @@ Comp_Sys/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Comp_Sys.dir/build.make CMakeFiles/Comp_Sys.dir/build
 .PHONY : Comp_Sys/fast
 
-main.o: main.c.o
+simple_c_program.o: simple_c_program.c.o
 
-.PHONY : main.o
+.PHONY : simple_c_program.o
 
 # target to build an object file
-main.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Comp_Sys.dir/build.make CMakeFiles/Comp_Sys.dir/main.c.o
-.PHONY : main.c.o
+simple_c_program.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Comp_Sys.dir/build.make CMakeFiles/Comp_Sys.dir/simple_c_program.c.o
+.PHONY : simple_c_program.c.o
 
-main.i: main.c.i
+simple_c_program.i: simple_c_program.c.i
 
-.PHONY : main.i
+.PHONY : simple_c_program.i
 
 # target to preprocess a source file
-main.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Comp_Sys.dir/build.make CMakeFiles/Comp_Sys.dir/main.c.i
-.PHONY : main.c.i
+simple_c_program.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Comp_Sys.dir/build.make CMakeFiles/Comp_Sys.dir/simple_c_program.c.i
+.PHONY : simple_c_program.c.i
 
-main.s: main.c.s
+simple_c_program.s: simple_c_program.c.s
 
-.PHONY : main.s
+.PHONY : simple_c_program.s
 
 # target to generate assembly for a file
-main.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Comp_Sys.dir/build.make CMakeFiles/Comp_Sys.dir/main.c.s
-.PHONY : main.c.s
+simple_c_program.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Comp_Sys.dir/build.make CMakeFiles/Comp_Sys.dir/simple_c_program.c.s
+.PHONY : simple_c_program.c.s
 
 # Help Target
 help:
@@ -179,9 +179,9 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... Comp_Sys"
-	@echo "... main.o"
-	@echo "... main.i"
-	@echo "... main.s"
+	@echo "... simple_c_program.o"
+	@echo "... simple_c_program.i"
+	@echo "... simple_c_program.s"
 .PHONY : help
 
 

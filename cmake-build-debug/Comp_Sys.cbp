@@ -76,7 +76,7 @@
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/home/reptar/Documents/Comp-Sys/main.c">
+		<Unit filename="/home/reptar/Documents/Comp-Sys/simple_c_program.c">
 			<Option target="Comp_Sys"/>
 		</Unit>
 		<Unit filename="/home/reptar/Documents/Comp-Sys/CMakeLists.txt">

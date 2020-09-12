@@ -4,7 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_C
-  "/home/reptar/Documents/Comp-Sys/main.c" "/home/reptar/Documents/Comp-Sys/cmake-build-debug/CMakeFiles/Comp_Sys.dir/main.c.o"
+  "/home/reptar/Documents/Comp-Sys/simple_c_program.c" "/home/reptar/Documents/Comp-Sys/cmake-build-debug/CMakeFiles/Comp_Sys.dir/simple_c_program.c.o"
   )
 set(CMAKE_C_COMPILER_ID "GNU")
 

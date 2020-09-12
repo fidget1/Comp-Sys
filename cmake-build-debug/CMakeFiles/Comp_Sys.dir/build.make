@@ -77,27 +77,27 @@ include CMakeFiles/Comp_Sys.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/Comp_Sys.dir/flags.make
 
-CMakeFiles/Comp_Sys.dir/main.c.o: CMakeFiles/Comp_Sys.dir/flags.make
-CMakeFiles/Comp_Sys.dir/main.c.o: ../main.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/reptar/Documents/Comp-Sys/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/Comp_Sys.dir/main.c.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/Comp_Sys.dir/main.c.o   -c /home/reptar/Documents/Comp-Sys/main.c
+CMakeFiles/Comp_Sys.dir/simple_c_program.c.o: CMakeFiles/Comp_Sys.dir/flags.make
+CMakeFiles/Comp_Sys.dir/simple_c_program.c.o: ../simple_c_program.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/reptar/Documents/Comp-Sys/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/Comp_Sys.dir/simple_c_program.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/Comp_Sys.dir/simple_c_program.c.o   -c /home/reptar/Documents/Comp-Sys/simple_c_program.c
 
-CMakeFiles/Comp_Sys.dir/main.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/Comp_Sys.dir/main.c.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/reptar/Documents/Comp-Sys/main.c > CMakeFiles/Comp_Sys.dir/main.c.i
+CMakeFiles/Comp_Sys.dir/simple_c_program.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/Comp_Sys.dir/simple_c_program.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/reptar/Documents/Comp-Sys/simple_c_program.c > CMakeFiles/Comp_Sys.dir/simple_c_program.c.i
 
-CMakeFiles/Comp_Sys.dir/main.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/Comp_Sys.dir/main.c.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/reptar/Documents/Comp-Sys/main.c -o CMakeFiles/Comp_Sys.dir/main.c.s
+CMakeFiles/Comp_Sys.dir/simple_c_program.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/Comp_Sys.dir/simple_c_program.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/reptar/Documents/Comp-Sys/simple_c_program.c -o CMakeFiles/Comp_Sys.dir/simple_c_program.c.s
 
 # Object files for target Comp_Sys
 Comp_Sys_OBJECTS = \
-"CMakeFiles/Comp_Sys.dir/main.c.o"
+"CMakeFiles/Comp_Sys.dir/simple_c_program.c.o"
 
 # External object files for target Comp_Sys
 Comp_Sys_EXTERNAL_OBJECTS =
 
-Comp_Sys: CMakeFiles/Comp_Sys.dir/main.c.o
+Comp_Sys: CMakeFiles/Comp_Sys.dir/simple_c_program.c.o
 Comp_Sys: CMakeFiles/Comp_Sys.dir/build.make
 Comp_Sys: CMakeFiles/Comp_Sys.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/reptar/Documents/Comp-Sys/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking C executable Comp_Sys"
