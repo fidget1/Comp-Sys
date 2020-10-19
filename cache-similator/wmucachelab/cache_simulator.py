@@ -38,14 +38,19 @@ def initialize_cache(arguments):
 args = get_arguments()
 initialized_cache = initialize_cache(args)
 data = get_data(args.trace)
+util.print_input(data)
 operation = data[7]
 print("address: " + str(operation["address"]))
 print("address in binary: " + str(bin(operation["address"])))
-addr = address.Address(operation["address"], initialized_cache.set_index_bits, initialized_cache.block_index_bits)
+address_size = 64
+addr = address.Address(operation["address"], initialized_cache.set_index_bits, initialized_cache.block_index_bits,
+                       address_size)
+print("tag bits: " + str(addr.tag_bits))
 print("tag: " + str(addr.tag_num))
+print("set bits: " + str(addr.set_bits))
 print("set: " + str(addr.set_num))
+print("block bits: " + str(addr.block_bits))
 print("block: " + str(addr.block_num))
 cache_block_size = 2 ** args.block_index_bits
 initialized_cache.get_sets()[0].set_line(0, cache_block_size, True, addr.tag_num, addr.block_num)
 initialized_cache.print_cache()
-# util.print_input(data)
