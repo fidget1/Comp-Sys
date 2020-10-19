@@ -1,6 +1,7 @@
 *.epub
 **/.idea/workspace.xml 
 **/.idea/tasks.xml
+*.pdf
 # Prerequisites
 *.d
 
