@@ -1,0 +1,5 @@
+2.1 Machine Basics: https://youtu.be/4l8Mzpl6tmc
+2.2 Machine Control: https://youtu.be/xm9NKjHvJ8E
+2.3 Machine Procedures: https://youtu.be/v1APxmB54og
+2.4 Machine Data: https://youtu.be/xRqt-YSxzrM
+

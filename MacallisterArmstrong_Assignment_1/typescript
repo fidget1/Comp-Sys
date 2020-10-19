@@ -1,0 +1,36 @@
+Script started on 2020-09-24 22:24:08-04:00 [TERM="xterm-256color" TTY="/dev/pts/0" COLUMNS="170" LINES="43"]
+]0;reptar@reptar: ~/Documents/Comp-Sys/Module 1/CS4541-MacallisterArmstrong-Assignment-1-Number-Demonstrations[01;32mreptar@reptar[00m:[01;34m~/Documents/Comp-Sys/Module 1/CS4541-MacallisterArmstrong-Assignment-1-Number-Demonstrations[00m$ make
+gcc -std=c99 -Wall -o main main.c
+[01m[Kmain.c:[m[K In function ‘[01m[Kproblem_five[m[K’:
+[01m[Kmain.c:63:14:[m[K [01;35m[Kwarning: [m[Kinteger overflow in expression of type ‘[01m[Kint[m[K’ results in ‘[01m[K-1794967296[m[K’ [[01;35m[K-Woverflow[m[K]
+   63 |     i = 50000[01;35m[K*[m[K50000;
+      |              [01;35m[K^[m[K
+[01m[Kmain.c:65:14:[m[K [01;35m[Kwarning: [m[Kinteger overflow in expression of type ‘[01m[Kint[m[K’ results in ‘[01m[K-694967296[m[K’ [[01;35m[K-Woverflow[m[K]
+   65 |     i = 60000[01;35m[K*[m[K60000;
+      |              [01;35m[K^[m[K
+[01m[Kmain.c:67:14:[m[K [01;35m[Kwarning: [m[Kinteger overflow in expression of type ‘[01m[Kint[m[K’ results in ‘[01m[K605032704[m[K’ [[01;35m[K-Woverflow[m[K]
+   67 |     i = 70000[01;35m[K*[m[K70000;
+      |              [01;35m[K^[m[K
+]0;reptar@reptar: ~/Documents/Comp-Sys/Module 1/CS4541-MacallisterArmstrong-Assignment-1-Number-Demonstrations[01;32mreptar@reptar[00m:[01;34m~/Documents/Comp-Sys/Module 1/CS4541-MacallisterArmstrong-Assignment-1-Number-Demonstrations[00m$ make run
+./main
+2.5000000000
+-0.1000000015
+0.000000
+0.333333
+9999999.340000
+9999999.000000
+900000000
+1600000000
+-1794967296
+-694967296
+605032704
+100000002004087734272.000000
+100000002004087734272.000000
+103500002601996386304.000000
+100000002004087734272.000000
+]0;reptar@reptar: ~/Documents/Comp-Sys/Module 1/CS4541-MacallisterArmstrong-Assignment-1-Number-Demonstrations[01;32mreptar@reptar[00m:[01;34m~/Documents/Comp-Sys/Module 1/CS4541-MacallisterArmstrong-Assignment-1-Number-Demonstrations[00m$ make clean
+rm main
+]0;reptar@reptar: ~/Documents/Comp-Sys/Module 1/CS4541-MacallisterArmstrong-Assignment-1-Number-Demonstrations[01;32mreptar@reptar[00m:[01;34m~/Documents/Comp-Sys/Module 1/CS4541-MacallisterArmstrong-Assignment-1-Number-Demonstrations[00m$ exit
+exit
+
+Script done on 2020-09-24 22:24:29-04:00 [COMMAND_EXIT_CODE="0"]

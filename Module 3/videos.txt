@@ -1,0 +1,2 @@
+Computer_Systems_3-1_Memory_Hierarchy: https://www.youtube.com/watch?v=I0MvRRT94SI&feature=youtu.be
+Computer_Systems_3-2_Cache_Memory: https://www.youtube.com/watch?v=JBw5zUQ6mZ8&feature=youtu.be
