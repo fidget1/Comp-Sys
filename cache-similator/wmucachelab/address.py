@@ -1,7 +1,7 @@
 class Address:
     def __init__(self, address, set_index_bits, block_index_bits, m):
         self.address = address
-        self.tag_bits = m - (set_index_bits + block_index_bits)
+        self.tag_bits = m - (set_index_bits + block_index_bits) - 1
         self.set_bits = set_index_bits
         self.block_bits = block_index_bits
         self.tag_num = address >> (set_index_bits + block_index_bits)

@@ -1,4 +1,5 @@
 from wmucachelab import line
+from wmucachelab import block
 
 
 class Set:
@@ -6,6 +7,8 @@ class Set:
         self.num_lines = num_lines
         self.block_size = block_size
         self.lines = []
+        for i in range(self.num_lines):
+            self.lines.append(line.Line(False, None, block.Block(block_size, None), block_size))
 
     def set_line(self, line_num, block_size, valid, tag, data):
         if len(self.lines) == 0:

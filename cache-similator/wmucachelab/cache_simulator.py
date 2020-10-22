@@ -20,18 +20,12 @@ def initialize_cache(arguments):
     num_sets = 2 ** arguments.set_index_bits
     lines_per_set = arguments.cache_lines
     block_size = 2 ** block_index_bits
-    cache_size = block_size * lines_per_set * num_sets
-    address_size = 64
-    # 1 bit for valid
-    tag_index_bits = address_size - (block_index_bits + set_index_bits) - 1
+    cache_size = num_sets * lines_per_set * block_size
+    addr_size = 64
+    tag_index_bits = addr_size - (block_index_bits + set_index_bits)
 
     new_cache = cache.Cache(cache_size, num_sets, block_size, lines_per_set, tag_index_bits, set_index_bits,
                             block_index_bits)
-    for i in range(num_sets):
-        new_cache.set_set()
-        this_set = new_cache.get_sets()[i]
-        for j in range(args.cache_lines):
-            this_set.set_line(j, block_size, False, 0, 0)
     return new_cache
 
 
@@ -39,7 +33,9 @@ args = get_arguments()
 initialized_cache = initialize_cache(args)
 data = get_data(args.trace)
 util.print_input(data)
-operation = data[7]
+op_num = 7
+operation = data[op_num]
+print("op num: " + str(op_num))
 print("address: " + str(operation["address"]))
 print("address in binary: " + str(bin(operation["address"])))
 address_size = 64
@@ -51,6 +47,4 @@ print("set bits: " + str(addr.set_bits))
 print("set: " + str(addr.set_num))
 print("block bits: " + str(addr.block_bits))
 print("block: " + str(addr.block_num))
-cache_block_size = 2 ** args.block_index_bits
-initialized_cache.get_sets()[0].set_line(0, cache_block_size, True, addr.tag_num, addr.block_num)
 initialized_cache.print_cache()

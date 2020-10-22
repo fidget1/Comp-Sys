@@ -2,10 +2,11 @@ from wmucachelab import block
 
 
 class Line:
-    def __init__(self):
-        self.valid = False
-        self.tag = None
-        self.block = None
+    def __init__(self, valid, tag, _block, block_size):
+        self.valid = valid
+        self.tag = tag
+        self.block = _block
+        self.block_size = block_size
 
     def get_valid(self):
         return self.valid
