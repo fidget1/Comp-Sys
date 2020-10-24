@@ -33,13 +33,10 @@ def operate(operation_line, _cache):
     size = int(operation_line["size"])
     op = operation_line["line_type"]
     text = operation_line["text_line"].replace("\n", "")
-    # print("\t\t\t\t\t" + str(operation_line))
     if op == "load":
-        # a = 1
         load_ret = _cache.load(size, _address, text)
         print(load_ret)
     elif op == "modify":
-        b = 1
         mod_ret = _cache.modify(size, _address, text)
         print(mod_ret)
     elif op == "store":
@@ -51,12 +48,8 @@ def operate(operation_line, _cache):
 args = get_arguments()
 initialized_cache = initialize_cache(args)
 data = get_data(args.trace)
-# print("\t\t\t\t\t\t\tDATA: " + str(data))
-# util.print_input(data)
 for item in data:
     initialized_cache = operate(item, initialized_cache)
-    # initialized_cache.print()
+    # initialized_cache.print_cache()
 print("hits:" + str(initialized_cache.hits) + " misses:" + str(initialized_cache.misses) + " evictions:" +
       str(initialized_cache.evictions))
-
-# initialized_cache.print()

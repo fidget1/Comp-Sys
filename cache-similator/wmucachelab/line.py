@@ -45,6 +45,6 @@ class Line:
         self.age = age
 
     def print(self):
-        print("Set: " + str(self.set_num) + " | Line: " + str(self.line_num) + " | Valid: " + str(self.valid) +
-              " | Tag: " + str(self.tag) + " | Block: " + str(self.block) + " | Age: " + str(self.age))
+        print("Set: " + str(self.set_num) + "\t|\tLine: " + str(self.line_num) + "\t|\tValid: " + str(self.valid) +
+              "\t|\tTag: " + str(self.tag) + "\t|\tBlock: " + str(self.block) + "\t|\tAge: " + str(self.age))
 

@@ -2,6 +2,12 @@ from wmucachelab.set import Set
 from wmucachelab.address import Address
 
 
+def print_op(set_index_bits, tag_index_bits, block_index_bits, set_num, tag_num, block_offset, size):
+    print("\tSet Index Bits: " + str(set_index_bits) + "\n\tTag Index Bits: " + str(tag_index_bits) +
+          "\n\tBlock Index Bits: " + str(block_index_bits) + "\n\tSet: " + str(set_num) + "\n\tTag: " + str(tag_num) +
+          "\n\tBlock: " + str(block_offset) + "\n\tData size: " + str(size))
+
+
 class Cache:
     def __init__(self, cache_size, num_sets, block_size, lines_per_set, tag_index_bits, set_index_bits,
                  block_index_bits):
@@ -29,102 +35,40 @@ class Cache:
         tag_num = addr.get_tag_num()
         set_num = addr.get_set_num()
         block_offset = addr.get_block_num()
-        # print("\tSet: " + str(set_num) + "\n\tTag: " + str(tag_num) + "\n\tBlock: " + str(block_offset))
-        _set = self.get_set(set_num)
-        ret = None
-        if _set is not None:
-            # _set.print()
-            # print("set not none")
-            line_num = _set.find_line_num_from_tag(tag_num)
-            if line_num is not None:
-                # print("line_num not none")
-                line = _set.get_line(line_num)
-                if line is not None:
-                    # print("line not none")
-                    valid = line.get_valid()
-                    data_in_range = _set.block_valid_size(block_offset, size)
-                    # print("DATA IN RANGE: " + str(data_in_range))
-                    if line_num is None or not valid or not data_in_range:
-                        # print("line_num not none, valid, in range")
-                        ret = " miss"
-                        self.misses += 1
-                    else:
-                        ret = " hit"
-                        self.hits += 1
-                else:
-                    print("something else happened")
-            else:
-                # tag not found
-                line = _set.get_line(None)
-                valid = line.get_valid()
-                ret = " miss"
-                self.misses += 1
-                if valid:
-                    ret += " eviction"
-                    self.evictions += 1
-                # else:
-                    # print("something else happened")
-        else:
-            print("something else happened")
-
-        return text + ret
-
-    def store(self, size, address, text):
-        addr = Address(address, self.set_index_bits, self.block_index_bits, size)
-        tag_num = addr.get_tag_num()
-        set_num = addr.get_set_num()
-        block_offset = addr.get_block_num()
-        # print("\tSet: " + str(set_num) + "\n\tTag: " + str(tag_num) + "\n\tBlock: " + str(block_offset))
+        # print_op(self.set_index_bits, self.tag_index_bits, self.block_index_bits, set_num, tag_num, block_offset, size)
         _set = self.get_set(set_num)
         # _set.print()
-        ret = None
-        if _set is not None:
-            # print("set not None")
-            # _set.print()
-            line_num = _set.find_line_num_from_tag(tag_num)
-            # print("line number \t\t!!!")
-            # tag not found
-            if line_num is None:
-                # print("line_num is None")
-                line = _set.get_line(line_num)
-                # print("LINE: " + str(line_num))
-                # line_num = line.get_line_num()
-                if line is not None:
-                    # print("line is not None")
-                    valid = line.get_valid()
-                    data_in_range = _set.block_valid_size(block_offset, size)
-                    # print("data_in_range: " + str(data_in_range))
-                    # print("valid: " + str(valid))
-                    if data_in_range and not valid:
-                        # print("data in range")
-                        line.set_valid(True)
-                        line.set_tag(tag_num)
-                        line.set_block("set")
-                        ret = " hit"
-                        self.hits += 1
-                    else:
-                        line.set_tag(tag_num)
-                        line.set_block("set")
-                        ret = " hit"
-                        self.hits += 1
-                        # print("something else happened1")
-                else:
-                    print("something else happened2")
-            else:
-                # tag not found
-                line = _set.get_line(None)
-                # line.print()
-                valid = line.get_valid()
-                # print("VALID: " + str(valid))
+        line_num = _set.find_line_num_from_tag(tag_num)
+        if line_num is None:
+            # print("tag not found")
+            line = _set.get_oldest_line()
+            valid = line.get_valid()
+            data_in_range = _set.block_valid_size(block_offset, size)
+            # print("valid: " + str(valid) + " | data_in_range: " + str(data_in_range))
+            if not valid or not data_in_range:
                 ret = " miss"
                 self.misses += 1
-                if valid:
-                    ret += " eviction"
-                    self.evictions += 1
-                # else:
-                    # print("something else happened")
+            elif valid and data_in_range:
+                ret = " miss eviction"
+                self.misses += 1
+                self.evictions += 1
+            else:
+                ret = " unknown"
+                print("load: something else happened")
         else:
-            print("something else happened3")
+            # print("tag found")
+            line = _set.get_line(line_num)
+            valid = line.get_valid()
+            data_in_range = _set.block_valid_size(block_offset, size)
+            if not valid or not data_in_range:
+                ret = " miss"
+                self.misses += 1
+            elif valid and data_in_range:
+                ret = " hit"
+                self.hits += 1
+            else:
+                ret = " unknown"
+                print("load: something else happened")
         return text + ret
 
     def modify(self, size, address, text):
@@ -132,53 +76,90 @@ class Cache:
         tag_num = addr.get_tag_num()
         set_num = addr.get_set_num()
         block_offset = addr.get_block_num()
-        # print("\tSet: " + str(set_num) + "\n\tTag: " + str(tag_num) + "\n\tBlock: " + str(block_offset))
+        # print_op(self.set_index_bits, self.tag_index_bits, self.block_index_bits, set_num, tag_num, block_offset, size)
         _set = self.get_set(set_num)
-        ret = None
-        if _set is not None:
-            # print("set is not None")
-            # _set.print()
-            line_num = _set.find_line_num_from_tag(tag_num)
-            # tag not found
-            if line_num is None:
-                ret = " miss"
-                self.misses += 1
-                # print("line_num is None")
-                line = _set.get_line(line_num)
-                # line_num = line.get_line_num()
-                if line is not None:
-                    # print("line is not None")
-                    valid = line.get_valid
-                    data_in_range = _set.block_valid_size(block_offset, size)
-                    if data_in_range:
-                        line.set_valid(True)
-                        line.set_tag(tag_num)
-                        line.set_block("set")
-                        ret += " hit"
-                        self.hits += 1
-                    else:
-                        print("something else happened")
-                else:
-                    print("something else happened")
+        # _set.print()
+        line_num = _set.find_line_num_from_tag(tag_num)
+        if line_num is None:
+            # print("tag not found")
+            ret = " miss"
+            self.misses += 1
+            line = _set.get_oldest_line()
+            valid = line.get_valid()
+            data_in_range = _set.block_valid_size(block_offset, size)
+            if data_in_range and not valid:
+                line.set_valid(True)
+                line.set_tag(tag_num)
+                line.set_block("set")
+                ret += " hit"
+                self.hits += 1
             else:
-                # tag not found
-                line = _set.get_line(None)
-                # line.print()
-                valid = line.get_valid()
-                # print("VALID: " + str(valid))
-                ret = " miss"
-                self.misses += 1
-                if valid:
-                    ret += " eviction hit"
-                    self.evictions += 1
-                    self.hits += 1
-                else:
-                    print("something else happened")
+                print("valid: " + str(valid) + " | data_in_range: " + str(data_in_range))
+                print("modify: something else happened1")
         else:
-            print("something else happened")
+            # print("tag found")
+            line = _set.get_line(line_num)
+            # line.print()
+            valid = line.get_valid()
+            ret = " miss"
+            self.misses += 1
+            if valid:
+                ret += " eviction hit"
+                self.evictions += 1
+                self.hits += 1
+            else:
+                ret += " hit"
+                self.hits += 1
+                print("modify: something else happened2")
         return text + ret
 
-    def print(self):
+    def store(self, size, address, text):
+        self.print_cache()
+        addr = Address(address, self.set_index_bits, self.block_index_bits, size)
+        tag_num = addr.get_tag_num()
+        set_num = addr.get_set_num()
+        block_offset = addr.get_block_num()
+        print_op(self.set_index_bits, self.tag_index_bits, self.block_index_bits, set_num, tag_num, block_offset, size)
+        _set = self.get_set(set_num)
+        _set.print()
+        line_num = _set.find_line_num_from_tag(tag_num)
+        if line_num is None:
+            # print("tag not found")
+            line = _set.get_oldest_line()
+            valid = line.get_valid()
+            data_in_range = _set.block_valid_size(block_offset, size)
+            if not valid or not data_in_range:
+                print("not valid or data not in range")
+                line.set_valid(True)
+                line.set_tag(tag_num)
+                line.set_block("set")
+                ret = " hit"
+                self.hits += 1
+            elif valid and data_in_range:
+                print("tag not found, valid, data in range")
+                line.set_valid(True)
+                line.set_tag(tag_num)
+                line.set_block("set")
+                ret = " hit"
+                self.hits += 1
+            else:
+                ret = " unknown"
+                print("store: something else happened")
+        else:
+            # print("tag found")
+            line = _set.get_line(line_num)
+            valid = line.get_valid()
+            ret = " miss"
+            self.misses += 1
+            if valid:
+                ret += " eviction"
+                self.evictions += 1
+            else:
+                ret = " unknown"
+                print("store: something else happened")
+        return text + ret
+
+    def print_cache(self):
         for i in range(self.num_sets):
             self.get_set(i).print()
 
@@ -189,4 +170,3 @@ class Cache:
         print("tag_index_bits: " + str(self.tag_index_bits))
         print("set_index_bits: " + str(self.set_index_bits))
         print("block_index_bits: " + str(self.block_index_bits))
-

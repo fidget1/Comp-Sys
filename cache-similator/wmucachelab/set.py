@@ -6,9 +6,13 @@ class Set:
         self.set_num = set_num
         self.num_lines = num_lines
         self.block_size = block_size
+        self.max_age = num_lines - 1
         self.lines = []
         for i in range(self.num_lines):
             self.lines.append(Line(set_num, i, False, None, None, block_size, i))
+
+    def get_line(self, i):
+        return self.lines[i]
 
     def find_line_num_from_tag(self, tag):
         for i in range(self.num_lines):
@@ -25,25 +29,8 @@ class Set:
             ret = True
         return ret
 
-    def get_line(self, line_num):
-        if line_num is None:
-            line_num = self.get_oldest_line()
-            # print("AFTER GET OLDEST LINE ( line_num: " + str(line_num))
-            # print("GET LINE\n\n")
-            # self.lines[line_num].print()
-        elif line_num > len(self.lines):
-            return None
-
-        return self.lines[line_num]
-
     def get_oldest_line(self):
-        max_age = -1
-        line_index = -1
-        for i in range(len(self.lines)):
-            if self.lines[i].get_age() > max_age:
-                max_age = self.lines[i].get_age()
-                line_index = i
-        return line_index
+        return self.lines[self.max_age]
 
     def set_line(self, set_num, line_num, valid, tag, data, age):
         self.lines[line_num].set_set_num(set_num)
