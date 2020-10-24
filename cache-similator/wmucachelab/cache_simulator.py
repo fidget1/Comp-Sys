@@ -1,6 +1,6 @@
 from wmucachelab import util
-from wmucachelab import cache
-from wmucachelab import address
+from wmucachelab.cache import Cache
+from wmucachelab.address import Address
 
 
 def get_arguments():
@@ -24,27 +24,39 @@ def initialize_cache(arguments):
     addr_size = 64
     tag_index_bits = addr_size - (block_index_bits + set_index_bits)
 
-    new_cache = cache.Cache(cache_size, num_sets, block_size, lines_per_set, tag_index_bits, set_index_bits,
-                            block_index_bits)
+    new_cache = Cache(cache_size, num_sets, block_size, lines_per_set, tag_index_bits, set_index_bits, block_index_bits)
     return new_cache
+
+
+def operate(operation_line, _cache):
+    _address = operation_line["address"]
+    size = int(operation_line["size"])
+    op = operation_line["line_type"]
+    text = operation_line["text_line"].replace("\n", "")
+    # print("\t\t\t\t\t" + str(operation_line))
+    if op == "load":
+        # a = 1
+        load_ret = _cache.load(size, _address, text)
+        print(load_ret)
+    elif op == "modify":
+        b = 1
+        mod_ret = _cache.modify(size, _address, text)
+        print(mod_ret)
+    elif op == "store":
+        store_ret = _cache.store(size, _address, text)
+        print(store_ret)
+    return _cache
 
 
 args = get_arguments()
 initialized_cache = initialize_cache(args)
 data = get_data(args.trace)
-util.print_input(data)
-op_num = 7
-operation = data[op_num]
-print("op num: " + str(op_num))
-print("address: " + str(operation["address"]))
-print("address in binary: " + str(bin(operation["address"])))
-address_size = 64
-addr = address.Address(operation["address"], initialized_cache.set_index_bits, initialized_cache.block_index_bits,
-                       address_size)
-print("tag bits: " + str(addr.tag_bits))
-print("tag: " + str(addr.tag_num))
-print("set bits: " + str(addr.set_bits))
-print("set: " + str(addr.set_num))
-print("block bits: " + str(addr.block_bits))
-print("block: " + str(addr.block_num))
-initialized_cache.print_cache()
+# print("\t\t\t\t\t\t\tDATA: " + str(data))
+# util.print_input(data)
+for item in data:
+    initialized_cache = operate(item, initialized_cache)
+    # initialized_cache.print()
+print("hits:" + str(initialized_cache.hits) + " misses:" + str(initialized_cache.misses) + " evictions:" +
+      str(initialized_cache.evictions))
+
+# initialized_cache.print()

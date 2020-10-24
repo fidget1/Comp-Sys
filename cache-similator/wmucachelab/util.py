@@ -1,32 +1,33 @@
 import argparse
 
 
-def read_line(_line, line_type):
+def read_line(_line, line_type, text):
     arr = _line.split(",")
+    text = text[1:]
+    # print("arr[0]: " + str(arr[0]))
     address = int(str("0x" + arr[0]), 16)
     size = arr[1].replace("\n", "")
-    return {"address": address, "size": size, "line_type": line_type}
+    return {"address": address, "size": size, "line_type": line_type, "text_line": text.replace("\n", "")}
 
 
 def read_input(t):
     with open(t, "r") as trace_file:
         input_data = []
-        i = 0
         for ln in trace_file:
             if ln[0] == " ":
                 if ln[1] == "L":
-                    input_data.append(read_line(ln[3:], "load"))
+                    input_data.append(read_line(ln[3:], "load", ln))
                 elif ln[1] == "S":
-                    input_data.append(read_line(ln[3:], "store"))
+                    input_data.append(read_line(ln[3:], "store", ln))
                 elif ln[1] == "M":
-                    input_data.append(read_line(ln[3:], "modify"))
+                    input_data.append(read_line(ln[3:], "modify", ln))
     trace_file.close()
     return input_data
 
 
 def print_input(data):
-    for i in data:
-        print(i)
+    for item in data:
+        print(item)
 
 
 def parse_arguments():

@@ -1,12 +1,18 @@
-from wmucachelab import block
-
-
 class Line:
-    def __init__(self, valid, tag, _block, block_size):
+    def __init__(self, set_num, line_num, valid, tag, data, block_size, age):
+        self.set_num = set_num
+        self.line_num = line_num
         self.valid = valid
         self.tag = tag
-        self.block = _block
+        self.block = data
         self.block_size = block_size
+        self.age = age
+
+    def get_set_num(self):
+        return self.set_num
+
+    def get_line_num(self):
+        return self.line_num
 
     def get_valid(self):
         return self.valid
@@ -17,15 +23,28 @@ class Line:
     def get_block(self):
         return self.block
 
+    def get_age(self):
+        return self.age
+
+    def set_set_num(self, set_num):
+        self.set_num = set_num
+
+    def set_line_num(self, line_num):
+        self.line_num = line_num
+
     def set_valid(self, valid):
         self.valid = valid
 
     def set_tag(self, tag):
         self.tag = tag
 
-    def set_block(self, block_size, data):
-        self.block = block.Block(block_size, data)
+    def set_block(self, data):
+        self.block = data
 
-    def print_line(self):
-        print("valid: " + str(self.valid) + " | tag: " + str(self.tag) + " | block: " + str(self.block))
+    def set_age(self, age):
+        self.age = age
+
+    def print(self):
+        print("Set: " + str(self.set_num) + " | Line: " + str(self.line_num) + " | Valid: " + str(self.valid) +
+              " | Tag: " + str(self.tag) + " | Block: " + str(self.block) + " | Age: " + str(self.age))
 

@@ -1,7 +1,10 @@
 class Address:
-    def __init__(self, address, set_index_bits, block_index_bits, m):
+    def __init__(self, address, set_index_bits, block_index_bits, size):
         self.address = address
-        self.tag_bits = m - (set_index_bits + block_index_bits) - 1
+        self.size = size
+        # valid is a Line property, not part of the actual address
+        # print("\n\n\n\nADDRESS: " + str(address) + "\n\n\n\n")
+        self.tag_bits = self.size - (set_index_bits + block_index_bits)
         self.set_bits = set_index_bits
         self.block_bits = block_index_bits
         self.tag_num = address >> (set_index_bits + block_index_bits)
@@ -13,15 +16,6 @@ class Address:
         for bit in range(block_index_bits):
             block_mask += "1"
         self.block_num = address & int(block_mask, 2)
-
-    def set_address(self, address):
-        self.address = address
-
-    def set_tag_num(self, tag_num):
-        self.tag_num = tag_num
-
-    def set_set_num(self, set_num):
-        self.set_num = set_num
 
     def get_address(self):
         return self.address
