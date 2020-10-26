@@ -4,9 +4,14 @@ import argparse
 def read_line(_line, line_type, text):
     arr = _line.split(",")
     text = text[1:]
-    # print("arr[0]: " + str(arr[0]))
-    address = int(str("0x" + arr[0]), 16)
-    size = arr[1].replace("\n", "")
+    valid_hex_chars = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F", "a", "b", "c",
+                       "d", "e", "f"]
+    if arr[0][0] not in valid_hex_chars:
+        address = None
+        size = arr[1].replace("\n", "")
+    else:
+        address = int(str("0x" + arr[0]), 16)
+        size = arr[1].replace("\n", "")
     return {"address": address, "size": size, "line_type": line_type, "text_line": text.replace("\n", "")}
 
 
