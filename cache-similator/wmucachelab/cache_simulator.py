@@ -26,7 +26,7 @@ def initialize_cache(arguments):
     return new_cache
 
 
-def operate(operation_line, _cache):
+def operate(operation_line, _cache, verbose):
     _address = operation_line["address"]
     size = int(operation_line["size"])
     op = operation_line["line_type"]
@@ -35,15 +35,19 @@ def operate(operation_line, _cache):
         ret = text
         print(ret)
     else:
+        # Since load and store are identical, they've been consolidated
         if op == "load":
             store_ret = _cache.store(size, _address, text)
-            print(store_ret["text"] + store_ret["ret"])
+            if verbose:
+                print(store_ret["text"] + store_ret["ret"])
         elif op == "modify":
             mod_ret = _cache.modify(size, _address, text)
-            print(mod_ret["text"] + mod_ret["ret"])
+            if verbose:
+                print(mod_ret["text"] + mod_ret["ret"])
         elif op == "store":
             store_ret = _cache.store(size, _address, text)
-            print(store_ret["text"] + store_ret["ret"])
+            if verbose:
+                print(store_ret["text"] + store_ret["ret"])
     return _cache
 
 
@@ -51,6 +55,6 @@ args = get_arguments()
 initialized_cache = initialize_cache(args)
 data = get_data(args.trace)
 for item in data:
-    initialized_cache = operate(item, initialized_cache)
+    initialized_cache = operate(item, initialized_cache, args.verbose)
 print("hits:" + str(initialized_cache.hits) + " misses:" + str(initialized_cache.misses) + " evictions:" +
       str(initialized_cache.evictions))
