@@ -1,12 +1,11 @@
 class Line:
-    def __init__(self, set_num, line_num, valid, tag, data, block_size, age):
+    def __init__(self, set_num, line_num, valid, tag, data, block_size):
         self.set_num = set_num
         self.line_num = line_num
         self.valid = valid
         self.tag = tag
         self.block = data
         self.block_size = block_size
-        self.age = age
 
     def get_set_num(self):
         return self.set_num
@@ -23,8 +22,8 @@ class Line:
     def get_block(self):
         return self.block
 
-    def get_age(self):
-        return self.age
+    def get_block_size(self):
+        return self.block_size
 
     def set_set_num(self, set_num):
         self.set_num = set_num
@@ -41,10 +40,6 @@ class Line:
     def set_block(self, data):
         self.block = data
 
-    def set_age(self, age):
-        self.age = age
-
-    def print(self):
-        print("Set: " + str(self.set_num) + "\t|\tLine: " + str(self.line_num) + "\t|\tValid: " + str(self.valid) +
-              "\t|\tTag: " + str(self.tag) + "\t|\tBlock: " + str(self.block) + "\t|\tAge: " + str(self.age))
+    def set_block_size(self, block_size):
+        self.block_size = block_size
 

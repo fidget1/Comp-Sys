@@ -30,11 +30,6 @@ def read_input(t):
     return input_data
 
 
-def print_input(data):
-    for item in data:
-        print(item)
-
-
 def parse_arguments():
     parser = argparse.ArgumentParser(description="CPU cache simulator")
     parser.add_argument("-v", "--verbose", action="store_true", help="verbose output")
@@ -44,12 +39,4 @@ def parse_arguments():
     parser.add_argument("-t", "--trace", type=str, help="file to load")
     args = parser.parse_args()
     return args
-
-
-def print_arguments(arguments):
-    print("-v=" + str(arguments.verbose))
-    print("-s=" + str(arguments.index_bits))
-    print("-E=" + str(arguments.cache_lines))
-    print("-b=" + str(arguments.block_index_bits))
-    print("-t=" + arguments.trace + "\n")
 

@@ -1,6 +1,5 @@
 from wmucachelab import util
 from wmucachelab.cache import Cache
-from wmucachelab.address import Address
 
 
 def get_arguments():
@@ -14,7 +13,6 @@ def get_data(t):
 
 
 def initialize_cache(arguments):
-    # util.print_arguments(args)
     set_index_bits = arguments.set_index_bits
     block_index_bits = arguments.block_index_bits
     num_sets = 2 ** arguments.set_index_bits
@@ -38,8 +36,8 @@ def operate(operation_line, _cache):
         print(ret)
     else:
         if op == "load":
-            load_ret = _cache.load(size, _address, text)
-            print(load_ret["text"] + load_ret["ret"])
+            store_ret = _cache.store(size, _address, text)
+            print(store_ret["text"] + store_ret["ret"])
         elif op == "modify":
             mod_ret = _cache.modify(size, _address, text)
             print(mod_ret["text"] + mod_ret["ret"])
@@ -54,6 +52,5 @@ initialized_cache = initialize_cache(args)
 data = get_data(args.trace)
 for item in data:
     initialized_cache = operate(item, initialized_cache)
-# initialized_cache.print_cache()
 print("hits:" + str(initialized_cache.hits) + " misses:" + str(initialized_cache.misses) + " evictions:" +
       str(initialized_cache.evictions))

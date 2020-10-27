@@ -2,8 +2,6 @@ class Address:
     def __init__(self, address, set_index_bits, block_index_bits, size):
         self.address = address
         self.size = size
-        # valid is a Line property, not part of the actual address
-        # print("\n\n\n\nADDRESS: " + str(address) + "\n\n\n\n")
         self.tag_bits = self.size - (set_index_bits + block_index_bits)
         self.set_bits = set_index_bits
         self.block_bits = block_index_bits
