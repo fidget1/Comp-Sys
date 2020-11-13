@@ -20,6 +20,6 @@ def operate(line, memory):
 
 inp = util.read_input("input.txt")
 mem = MemoryAllocator("ff")
-for i in range(len(inp)):
-    operate(inp[i], mem)
-# mem.heap.print_list()
+# for i in range(len(inp)):
+# operate(inp[i], mem)
+mem.myalloc(20, 0)

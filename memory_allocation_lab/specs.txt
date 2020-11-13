@@ -41,7 +41,7 @@ So, your header would start at word 1 (address 4), the payload would start at wo
 start at word 4 (address 16). This would allow your next header to start at word 5 (address 20) and the next payload to
 start at word 6 (address 24).
 
-            |header|     payload      |footer  |
+         | header |     payload     | footer |
 
 |--------|--------|--------|--------|--------|--------|
 
