@@ -19,7 +19,12 @@ def operate(line, memory):
 
 
 inp = util.read_input("input.txt")
-mem = MemoryAllocator("ff")
-# for i in range(len(inp)):
-# operate(inp[i], mem)
-mem.myalloc(20, 0)
+mem = MemoryAllocator(policy={"heap_type": "implicit", "algorithm": "first-fit"})
+for i in range(len(inp)):
+    operate(inp[i], mem)
+# mem.myalloc(5, 0)
+# mem.myalloc(5, 1)
+# mem.myalloc(1000, 2)
+# mem.myalloc(2000, 3)
+# mem.myalloc(936, 4)
+# mem.heap.print()

@@ -1,11 +1,11 @@
-class LinkedList:
+class ExplicitFreeList:
     def __init__(self):
         self.head = None
         self.num_nodes = 0
 
-    def find_free_block(self, block_size, op_num):
+    def find_free_block(self, block_size):
         if self.num_nodes == 0:
-            self.head = Node(0, 1000, op_num)
+            self.head = ExplicitNode(0, 1000)
             self.num_nodes += 1
             return self.head
 
@@ -60,7 +60,7 @@ class LinkedList:
         return tmp
 
     def prepend(self, address, block_size):
-        node = Node(address=address, block_size=block_size)
+        node = ExplicitNode(address=address, block_size=block_size)
         node.prev = None
         node.next = self.head
         if self.head is not None:
@@ -73,7 +73,7 @@ class LinkedList:
         if not self.node_in_heap(prev):
             print("Error - node not in heap.")
             return
-        node = Node(address=address, block_size=block_size)
+        node = ExplicitNode(address=address, block_size=block_size)
         node.next = prev.next
         prev.next = node
         node.prev = prev
@@ -96,7 +96,7 @@ class LinkedList:
         return False
 
     def append(self, address, block_size):
-        node = Node(address=address, block_size=block_size)
+        node = ExplicitNode(address=address, block_size=block_size)
         if self.head is None:
             node.prev = None
             self.head = node
@@ -116,8 +116,18 @@ class LinkedList:
             cur.print()
             cur = cur.next
 
+    def split(self, free_block, block_size, heap_size, op_num):
+        pass
 
-class Node:
+    def print_list(self):
+        cur = self.head
+        print("num_nodes: " + str(self.num_nodes))
+        while cur is not None:
+            cur.print_node()
+            cur = cur.next
+
+
+class ExplicitNode:
     def __init__(self, address, block_size, op_num):
         self.address = address
         self.block_size = block_size

@@ -1,12 +1,18 @@
-from linked_list import LinkedList
-from linked_list import Node
+from explicit_free_list import ExplicitFreeList
+from explicit_free_list import ExplicitNode
+from implicit_free_list import ImplicitFreeList
+from implicit_free_list import ImplicitNode
 
 
 class MemoryAllocator:
     def __init__(self, policy):
-        self.policy = policy
-        self.heap_size = 1000
-        self.heap = LinkedList()
+        self.heap_type = policy["heap_type"]
+        self.algorithm = policy["algorithm"]
+        self.heap_size = 3996
+        if self.heap_type == "implicit":
+            self.heap = ImplicitFreeList(self.heap_size, self.algorithm)
+        else:
+            self.heap = ExplicitFreeList()
 
     """
     takes an integer value indicating the number of bytes to allocate for the payload of the block
@@ -14,8 +20,10 @@ class MemoryAllocator:
         The "pointer" above can take any form you like, depending on the data structure you use to represent your heap
     """
     def myalloc(self, block_size, op_num):
-        free_block = self.heap.find_free_block(block_size, op_num)
-        free_block.print()
+        free_block = self.heap.find_free_block(block_size)
+        self.heap.split(free_block, block_size, self.heap_size, op_num)
+        self.heap.print_list()
+        return
 
     """
     takes a pointer to an allocated block and an integer value to resize the block to
@@ -33,7 +41,7 @@ class MemoryAllocator:
         otherwise, does not change the heap
     """
     def myfree(self, block):
-        self.heap.print()
+        return
 
     """
     grows or shrinks the size of the heap by a number of words specified by the input parameter "size"
