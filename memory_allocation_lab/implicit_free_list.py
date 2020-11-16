@@ -1,6 +1,6 @@
 class ImplicitFreeList:
     def __init__(self, size, algorithm):
-        self.head = ImplicitNode(address=0x4, free=1, block_size=size, ptr_num=None)
+        self.head = ImplicitNode(address=0x4, end_address=3999, free=1, block_size=size, ptr_num=None)
         self.algorithm = algorithm
         self.num_nodes = 1
         self.size = size
@@ -28,14 +28,19 @@ class ImplicitFreeList:
         if free_block.free == 0:
             print("error")
             return
+        print(payload_size)
         block_size = ((payload_size + 7) & -8) + 8
         print(block_size)
         if free_block.address + block_size > heap_size:
             print("error")
             return
-        allocated_block = ImplicitNode(address=free_block.address, free=0, block_size=block_size, ptr_num=ptr_num)
-        new_free_block = ImplicitNode(address=free_block.address + block_size, free=1,
-                                      block_size=free_block.block_size - block_size, ptr_num=None)
+        allocated_end_address = free_block.address + block_size - 1
+        print("allocated_end_address: ", str(allocated_end_address))
+        free_block_end_address = free_block.end_address
+        allocated_block = ImplicitNode(address=free_block.address, end_address=allocated_end_address, free=0,
+                                       block_size=block_size, ptr_num=ptr_num)
+        new_free_block = ImplicitNode(address=free_block.address + block_size, end_address=free_block_end_address,
+                                      free=1, block_size=free_block.block_size - block_size, ptr_num=None)
         if self.head.next is None:
             self.head = allocated_block
             self.head.next = new_free_block
@@ -52,26 +57,15 @@ class ImplicitFreeList:
                     new_free_block.prev = allocated_block
                     self.num_nodes += 1
 
-    def remove_first(self):
-        return
-
-    def remove_specific(self, node):
-        return
-
-    def remove_last(self):
-        return
-
-    def prepend(self, address, block_size):
-
-        return
-
-    def insert_after(self, address, block_size, prev):
-        return
-
-    def node_in_heap(self, node):
-        return
-
-    def append(self, address, block_size):
+    def find_pointer_block(self, ptr_num):
+        print("ptr_num: ", str(ptr_num))
+        cur = self.head
+        while cur is not None:
+            if cur.ptr_num == ptr_num:
+                print("returning cur")
+                cur.print_node()
+                return cur
+            cur = cur.next
         return
 
     def print_list(self):
@@ -83,11 +77,11 @@ class ImplicitFreeList:
 
 
 class ImplicitNode:
-    def __init__(self, address, free, block_size, ptr_num):
+    def __init__(self, address, end_address, free, block_size, ptr_num):
         self.address = address
         self.block_size = block_size
         self.payload_size = None
-        self.end_address = address + block_size - 1
+        self.end_address = end_address
         self.free = free
         self.ptr_num = ptr_num
         self.prev = None

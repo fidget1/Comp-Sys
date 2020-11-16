@@ -8,7 +8,7 @@ class MemoryAllocator:
     def __init__(self, policy):
         self.heap_type = policy["heap_type"]
         self.algorithm = policy["algorithm"]
-        self.heap_size = 3996
+        self.heap_size = 4000
         if self.heap_type == "implicit":
             self.heap = ImplicitFreeList(self.heap_size, self.algorithm)
         else:
@@ -31,7 +31,14 @@ class MemoryAllocator:
     frees the old block
     a call to myrealloc with a size of zero is equivalent to a call to myfree
     """
-    def myrealloc(self, prev_block, new_block, size):
+    def myrealloc(self, prev_block_num, new_block_num, size):
+        prev_block = self.heap.find_pointer_block(prev_block_num)
+        print("prev block: " + str(prev_block_num))
+        prev_block.print_node()
+        new_block = self.heap.find_pointer_block(new_block_num)
+        print("new block: " + str(new_block_num))
+        new_block.print_node()
+        print("size: " + str(size))
         return
 
     """
@@ -40,7 +47,9 @@ class MemoryAllocator:
     only works if "pointer" represents a previously allocated or reallocated block that has not yet been freed
         otherwise, does not change the heap
     """
-    def myfree(self, block):
+    def myfree(self, ptr_num):
+        block = self.heap.find_pointer_block(ptr_num)
+        block.free = 1
         return
 
     """
@@ -52,4 +61,5 @@ class MemoryAllocator:
     def mysbrk(self, size):
         if self.heap_size + size > 100000:
             print("Exceeded heap size.")
-            return -1
+            return
+        self.heap_size += size

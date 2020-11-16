@@ -5,17 +5,17 @@ import util
 def operate(line, memory):
     operation = line[0]
     if operation == "a":
-        size = int(line[1])
-        block = int(line[2])
-        memory.myalloc(block, size)
+        block_size = int(line[1])
+        op_num = int(line[2])
+        memory.myalloc(block_size, op_num)
     elif operation == "r":
         size = int(line[1])
         prev_block = int(line[2])
         new_block = int(line[3])
         memory.myrealloc(prev_block, new_block, size)
     elif operation == "f":
-        block = int(line[1])
-        memory.myfree(block)
+        ptr_num = int(line[1])
+        memory.myfree(ptr_num)
 
 
 inp = util.read_input("input.txt")

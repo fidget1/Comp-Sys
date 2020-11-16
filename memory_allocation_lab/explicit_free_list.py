@@ -119,6 +119,10 @@ class ExplicitFreeList:
     def split(self, free_block, block_size, heap_size, op_num):
         pass
 
+    def find_pointer_block(self, ptr_num):
+        print("ptr_num: ", str(ptr_num))
+        return
+
     def print_list(self):
         cur = self.head
         print("num_nodes: " + str(self.num_nodes))
