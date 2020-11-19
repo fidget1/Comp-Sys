@@ -10,20 +10,49 @@ class ImplicitFreeList:
               ",\tsize: " + str(self.size))
 
     def find_free_block(self, block_size):
-        if self.head is None:
-            print("error - head is None for some reason")
-        if self.head.next is None and self.head.allocated == 0:
-            # print("Only head block exists. Block is free. Requested block size is smaller than block size.")
-            return self.head
+        if self.algorithm == "first-fit":
+            if self.head is None:
+                print("error - head is None for some reason")
+            if self.head.next is None and self.head.allocated == 0:
+                # print("Only head block exists. Block is free. Requested block size is smaller than block size.")
+                return self.head
+            else:
+                cur = self.head
+                while cur.next is not None:
+                    cur = cur.next
+                    if cur.allocated == 0 and cur.block_size >= block_size:
+                        return cur
+                print("error")
         else:
-            cur = self.head
-            while cur.next is not None:
-                cur = cur.next
-                if cur.allocated == 0:
-                    return cur
-            print("error")
+            if self.head is None:
+                print("error - head is None for some reason")
+            if self.head.next is None and self.head.allocated == 0:
+                return self.head
+            else:
+                cur = self.head
+                best_fit = None
+                min_difference = 100000000
+                while cur is not None:
+                    if cur.allocated == 0 and cur.block_size >= block_size:
+                        cur_difference = cur.block_size - block_size
+                        if cur_difference == 0:
+                            return cur
+                        if cur_difference < min_difference:
+                            min_difference = cur_difference
+                            best_fit = cur
+                    cur = cur.next
+                return best_fit
 
-        return
+    def replace_block(self, free_block, ptr_num):
+        free_block.ptr_num = ptr_num
+        free_block.allocated = 1
+        cur = free_block
+        while cur is not None:
+            if cur.prev is None:
+                self.head = cur
+            cur = cur.prev
+
+        return free_block
 
     def split(self, old_free_block, payload_size, heap_size, ptr_num):
         if not old_free_block:
@@ -66,22 +95,49 @@ class ImplicitFreeList:
                     allocated_block.prev = cur.prev
                     allocated_block.next = new_free_block
                     new_free_block.prev = allocated_block
+                    new_free_block.next = cur.next
                     self.num_nodes += 1
         return [allocated_block, new_free_block]
 
     def join_adjacent_blocks(self, block):
+        ret_blocks = []
         if block is None:
             print("error - block is None")
             return
         if block.allocated == 1:
             print("error - block is not free")
             return
-        if block.prev is not None and block.prev.allocated == 0:
-            new_block = self.join_blocks(first=block.prev, second=block)
-            return new_block
-        if block.next is not None and block.next.allocated == 0:
-            new_block = self.join_blocks(first=block, second=block.next)
-            return new_block
+        if block.prev is not None:
+            if block.prev.allocated == 0:
+                new_block = self.join_blocks(first=block.prev, second=block)
+                ret_blocks.append(new_block)
+                if new_block.next is not None:
+                    if new_block.next.allocated == 0:
+                        new_block = self.join_blocks(first=new_block, second=new_block.next)
+                        ret_blocks[0] = new_block
+                        self.print_list()
+                        return ret_blocks
+            elif block.next is not None:
+                if block.next.allocated == 0:
+                    new_block = self.join_blocks(first=block, second=block.next)
+                    ret_blocks.append(new_block)
+                    return ret_blocks
+                else:
+                    block.allocated = 0
+                    ret_blocks.append(block)
+                    return ret_blocks
+        elif block.next is not None:
+            if block.next.allocated == 0:
+                new_block = self.join_blocks(first=block, second=block.next)
+                ret_blocks.append(new_block)
+            else:
+                block.allocated = 0
+                ret_blocks.append(block)
+
+        if not ret_blocks:
+            ret_blocks.append(block)
+
+        return ret_blocks
 
     def join_blocks(self, first, second):
         address = first.address
@@ -96,6 +152,10 @@ class ImplicitFreeList:
                                  ptr_num=None)
         new_block.prev = prev_node
         new_block.next = next_node
+        if new_block.next:
+            new_block.next.prev = new_block
+        if new_block.prev:
+            new_block.prev.next = new_block
         new_block.payload_size = None
         new_block.payload_address = None
         cur = new_block
